@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Data</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js" integrity="sha384-1W+IofCOgHBc/ZbZGp8AF8AvNvRmWBXlZi6GsU38BL4MopDYxd9+L36x3O+LZuOj" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+        socket.on('data_update', function(data) {
+            console.log('Received data:', data);
+            document.getElementById('temperature').innerHTML = 'Temperature: ' + data.temperature.toFixed(2) + '°C';
+            document.getElementById('humidity').innerHTML = 'Humidity: ' + data.humidity.toFixed(2) + '%';
+        });
+    </script>
+</head>
+<body>
+    <h1>Real-Time Data</h1>
+    <p id="temperature">Temperature:</p>
+    <p id="humidity">Humidity:</p>
+</body>
+</html>

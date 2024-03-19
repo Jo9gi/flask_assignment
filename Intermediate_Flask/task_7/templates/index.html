@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Item List</h2>
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.name }}
+                <h3>Delete Item</h3>
+                <form method="post" action="{{ url_for('delete_item') }}">
+                    <label for="delete_item_name">Name:</label>
+                    <input type="text" id="delete_item_name" name="item_name" required>
+                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+                <h3>Update Item</h3>
+                <form method="post" action="{{ url_for('update_item', item_id=item.id) }}">
+                    <label for="update_item_name">Name:</label>
+                    <input type="text" id="update_item_name" name="updated_name" required>
+                    <button type="submit">Update</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h3>Add New Item</h3>
+    <form method="post" action="{{ url_for('add_item') }}">
+        <label for="add_item_name">Name:</label>
+        <input type="text" id="add_item_name" name="item_name" required>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
